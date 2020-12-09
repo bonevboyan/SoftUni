@@ -12,7 +12,7 @@ namespace _02.Commands
 
             string line = Console.ReadLine();
 
-            while (line != "end") 
+            while (line != "end")
             {
                 string[] input = line.Split(" ");
                 switch (input[0])

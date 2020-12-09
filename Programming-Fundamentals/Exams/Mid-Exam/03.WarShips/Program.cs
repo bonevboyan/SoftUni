@@ -39,7 +39,7 @@ namespace _03.WarShips
                         {
                             for (int i = startIndex; i <= endIndex; i++)
                             {
-                                pirateShip[i]-=damage; 
+                                pirateShip[i] -= damage;
                                 if (pirateShip[i] <= 0)
                                 {
                                     Console.WriteLine("You lost! The pirate ship has sunken.");
@@ -64,7 +64,7 @@ namespace _03.WarShips
 
                 line = Console.ReadLine();
             }
-            int warShipSum = 0, pirateShipSum = 0; 
+            int warShipSum = 0, pirateShipSum = 0;
             for (int i = 0; i < pirateShip.Count; i++)
             {
                 pirateShipSum += pirateShip[i];

@@ -12,8 +12,8 @@ namespace _01.CookingMasterclass
             decimal eggPrice = decimal.Parse(Console.ReadLine());
             decimal apronPrice = decimal.Parse(Console.ReadLine());
 
-            int freePackages = students / 5; 
-            decimal moneyNeeded = students * 10 * eggPrice + Math.Ceiling(students * (decimal)1.2)* apronPrice + flourPrice*(students-freePackages);
+            int freePackages = students / 5;
+            decimal moneyNeeded = students * 10 * eggPrice + Math.Ceiling(students * (decimal)1.2) * apronPrice + flourPrice * (students - freePackages);
 
             if (moneyNeeded <= budget)
             {
@@ -21,7 +21,7 @@ namespace _01.CookingMasterclass
             }
             else
             {
-                Console.WriteLine($"{moneyNeeded-budget:f2}$ more needed.");
+                Console.WriteLine($"{moneyNeeded - budget:f2}$ more needed.");
             }
         }
     }
