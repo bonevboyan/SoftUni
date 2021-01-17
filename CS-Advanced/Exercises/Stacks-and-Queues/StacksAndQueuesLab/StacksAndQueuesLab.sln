@@ -3,13 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.ReverseStrings", "01.ReverseStrings\01.ReverseStrings.csproj", "{929755F3-EBC9-47A1-9D64-3F2A3534B9F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01.ReverseStrings", "01.ReverseStrings\01.ReverseStrings.csproj", "{929755F3-EBC9-47A1-9D64-3F2A3534B9F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.StackSum", "02.StackSum\02.StackSum.csproj", "{188E46C2-58A9-49CB-AD2F-D528E9BC7251}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02.StackSum", "02.StackSum\02.StackSum.csproj", "{188E46C2-58A9-49CB-AD2F-D528E9BC7251}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.SimpleCalculator", "03.SimpleCalculator\03.SimpleCalculator.csproj", "{FF8A5BB7-EE61-43EA-AE24-58FD9EC8156C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03.SimpleCalculator", "03.SimpleCalculator\03.SimpleCalculator.csproj", "{FF8A5BB7-EE61-43EA-AE24-58FD9EC8156C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04.MatchingBracket", "04.MatchingBracket\04.MatchingBracket.csproj", "{531F8FB6-409D-4983-B5CD-1046357E8A68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04.MatchingBracket", "04.MatchingBracket\04.MatchingBracket.csproj", "{531F8FB6-409D-4983-B5CD-1046357E8A68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.HotPotato", "07.HotPotato\07.HotPotato.csproj", "{A44E1FAC-C40E-4D48-8018-5E9516095195}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08.TrafficJam", "08.TrafficJam\08.TrafficJam.csproj", "{F75F15CC-52BD-4C82-B2C9-E6A7DEED0A43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05.PrintEvenNumbers", "05.PrintEvenNumbers\05.PrintEvenNumbers.csproj", "{BE2F1B8D-EB9F-47AC-B119-2BEC83E0A5A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.Supermarket", "06.Supermarket\06.Supermarket.csproj", "{B6797B68-2DFC-4880-AAB8-29985FADBCA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +41,22 @@ Global
 		{531F8FB6-409D-4983-B5CD-1046357E8A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{531F8FB6-409D-4983-B5CD-1046357E8A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{531F8FB6-409D-4983-B5CD-1046357E8A68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A44E1FAC-C40E-4D48-8018-5E9516095195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A44E1FAC-C40E-4D48-8018-5E9516095195}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A44E1FAC-C40E-4D48-8018-5E9516095195}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A44E1FAC-C40E-4D48-8018-5E9516095195}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F75F15CC-52BD-4C82-B2C9-E6A7DEED0A43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F75F15CC-52BD-4C82-B2C9-E6A7DEED0A43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F75F15CC-52BD-4C82-B2C9-E6A7DEED0A43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F75F15CC-52BD-4C82-B2C9-E6A7DEED0A43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE2F1B8D-EB9F-47AC-B119-2BEC83E0A5A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE2F1B8D-EB9F-47AC-B119-2BEC83E0A5A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE2F1B8D-EB9F-47AC-B119-2BEC83E0A5A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE2F1B8D-EB9F-47AC-B119-2BEC83E0A5A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6797B68-2DFC-4880-AAB8-29985FADBCA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6797B68-2DFC-4880-AAB8-29985FADBCA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6797B68-2DFC-4880-AAB8-29985FADBCA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6797B68-2DFC-4880-AAB8-29985FADBCA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
