@@ -24,24 +24,94 @@ namespace _08.Bombs
 			int[][] bombs = Console.ReadLine().Split(' ').Select(o => o.Split(",").Select(int.Parse).ToArray()).ToArray();
 			for (int i = 0; i < bombs.Length; i++)
 			{
-				matrix[bombs[i][0]][bombs[i][1]]
-				if(bombs[i][0] < matrix.GetLength(0) - 1)
+				int row = bombs[i][0];
+				int col = bombs[i][1];
+				int damage = matrix[row, col];
+				if (matrix[row, col] > 0)
 				{
+					matrix[row, col] = 0;
+					if (row < matrix.GetLength(0) - 1)
+					{
+						if (matrix[row + 1, col] > 0)
+						{
+							matrix[row + 1, col] -= damage;
+						}
+						if (col < matrix.GetLength(1) - 1)
+						{
+							if (matrix[row + 1, col + 1] > 0)
+							{
+								matrix[row + 1, col + 1] -= damage;
+							}
+						}
+						if (col > 0)
+						{
+							if (matrix[row + 1, col - 1] > 0)
+							{
+								matrix[row + 1, col - 1] -= damage;
+							}
+						}
+					}
+					if (col < matrix.GetLength(1) - 1)
+					{
+						if (matrix[row, col + 1] > 0)
+						{
+							matrix[row, col + 1] -= damage;
+						}
 
-				} 
-				else if (bombs[i][1] < matrix.GetLength(1) - 1)
-				{
+					}
+					if (row > 0)
+					{
+						if (matrix[row - 1, col] > 0)
+						{
+							matrix[row - 1, col] -= damage;
+						}
+						if (col > 0)
+						{
+							if (matrix[row - 1, col - 1] > 0)
+							{
+								matrix[row - 1, col - 1] -= damage;
+							}
+						}
+						if (col < matrix.GetLength(1) - 1)
+						{
+							if (matrix[row - 1, col + 1] > 0)
+							{
+								matrix[row - 1, col + 1] -= damage;
+							}
 
-				}
-				else if (bombs[i][0] > 0)
-				{
-
-				}
-				else if (bombs[i][1] > 0)
-				{
-
+						}
+					}
+					if (col > 0)
+					{
+						if (matrix[row, col - 1] > 0)
+						{
+							matrix[row, col - 1] -= damage;
+						}
+					}
 				}
 			}
+			int sum = 0, aliveCells = 0;
+			for (int i = 0; i < matrix.GetLength(0); i++)
+			{
+				for (int j = 0; j < matrix.GetLength(1); j++)
+				{
+					if (matrix[i, j] > 0)
+					{
+						aliveCells++;
+						sum += matrix[i, j];
+					}
+				}
+			}
+            Console.WriteLine("Alive cells: " + aliveCells);
+            Console.WriteLine("Sum: " + sum);
+			for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    Console.Write(matrix[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
 		}
 	}
 }
