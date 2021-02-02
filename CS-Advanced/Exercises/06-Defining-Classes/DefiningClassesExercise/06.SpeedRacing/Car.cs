@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace _06.SpeedRacing
+namespace DefiningClasses
 {
-    class Car
+    public class Car
     {
         public string Model { get; set; }
         public double FuelAmount { get; set; }
@@ -24,4 +24,3 @@ namespace _06.SpeedRacing
         }
     }
 }
-
