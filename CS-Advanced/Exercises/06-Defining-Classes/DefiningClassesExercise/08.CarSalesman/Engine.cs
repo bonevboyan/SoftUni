@@ -9,7 +9,7 @@ namespace DefiningClasses
         public string Model { get; set; }
         public double Power { get; set; }
         public double Displacement { get; set; }
-        public double Efficiency { get; set; }
+        public string Efficiency { get; set; }
 
     }
 }
