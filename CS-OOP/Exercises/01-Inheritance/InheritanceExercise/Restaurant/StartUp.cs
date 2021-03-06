@@ -1,10 +1,10 @@
-﻿namespace Restaurant
+namespace Restaurant
 {
     public class StartUp
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
-
+           
         }
     }
 }
