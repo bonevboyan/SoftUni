@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Stealer
 {
-    public class Hacker
+    public class Hacker : Object
     {
-        private string username = "securityGod82";
+        public string username = "securityGod82";
         private string password = "mySuperSecretPassw0rd";
 
         public string Password
