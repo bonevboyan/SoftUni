@@ -1,6 +1,10 @@
 ﻿namespace _01.Logger
 {
-    internal class SimpleLayout : ILayout
+    public class SimpleLayout : ILayout
     {
+        public string FormatReport(string datetime, string reportLevel, string message)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
