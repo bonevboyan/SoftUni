@@ -69,7 +69,6 @@ namespace Bakery.Models.Tables
 
         public void Clear()
         {
-            this.NumberOfPeople = 0;
             foodOrders.Clear();
             drinkOrders.Clear();
             IsReserved = false;
@@ -77,7 +76,7 @@ namespace Bakery.Models.Tables
 
         public decimal GetBill()
         {
-            return foodOrders.Select(f => f.Price).Sum() + drinkOrders.Select(d => d.Price).Sum();
+            return foodOrders.Select(f => f.Price).Sum() + drinkOrders.Select(d => d.Price).Sum() + this.numberOfPeople * this.PricePerPerson;
 
         }
 
