@@ -10,12 +10,8 @@ namespace _04.PizzaCalories
         private string bakingTechnique;
         private double weight;
 
-        public Dough()
-        {
-        }
 
         public Dough(string flourType, string bakingTechnique, double weight)
-            : this()
         {
             this.FlourType = flourType;
             this.BakingTechnique = bakingTechnique;
@@ -28,14 +24,12 @@ namespace _04.PizzaCalories
 
             set
             {
-                if (value == "White" || value == "Wholegrain")
-                {
-                    this.flourType = value;
-                }
-                else
+                var valueAsLower = value.ToLower();
+                if (valueAsLower != "white" && valueAsLower != "wholegrain")
                 {
                     throw new ArgumentException("Invalid type of dough.");
                 }
+                this.flourType = value;
             }
         }
 
@@ -45,15 +39,12 @@ namespace _04.PizzaCalories
 
             set
             {
-                if (value.ToLower() == "crispy" || value.ToLower() == "chewy" || value.ToLower() == "homemade")
-                {
-                    this.bakingTechnique = value;
-                }
-                else
+                var valueAsLower = value.ToLower();
+                if (value.ToLower() != "crispy" && value.ToLower() != "chewy" && value.ToLower() != "homemade")
                 {
                     throw new ArgumentException("Invalid type of dough.");
                 }
-
+                this.bakingTechnique = value;
             }
         }
 
@@ -65,7 +56,7 @@ namespace _04.PizzaCalories
             {
                 if (value < 1 || value > 200)
                 {
-                    throw new ArgumentException("Dough weight should be in the range [1...200]");
+                    throw new ArgumentException("Dough weight should be in the range [1..200].");
                 }
 
                 this.weight = value;
@@ -83,8 +74,7 @@ namespace _04.PizzaCalories
 
         private double GetFlourTypeModifier(string flourType)
         {
-            double flourModifier = 0;
-
+            double flourModifier;
             if (flourType.ToLower() == "white")
             {
                 flourModifier = 1.5;

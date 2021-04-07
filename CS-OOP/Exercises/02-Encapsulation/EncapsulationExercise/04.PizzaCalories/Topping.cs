@@ -21,14 +21,12 @@ namespace _04.PizzaCalories
 
             set
             {
-                if (value.ToLower() == "meat" || value.ToLower() == "veggies" || value.ToLower() == "cheese" || value.ToLower() == "sauce")
-                {
-                    this.name = value;
-                }
-                else
+                var valueAsLower = value.ToLower();
+                if (valueAsLower != "meat" && valueAsLower != "veggies" && valueAsLower != "cheese" && valueAsLower != "sauce")
                 {
                     throw new ArgumentException($"Cannot place {value} on top of your pizza.");
                 }
+                this.name = value;
             }
         }
 
@@ -37,14 +35,11 @@ namespace _04.PizzaCalories
             get => weight;
             set
             {
-                if (value >= 1 && value <= 50)
+                if (value < 1 || value > 50)
                 {
-                    this.weight = value;
+                    throw new ArgumentException($"{this.Name} weight should be in the range [1..50].");
                 }
-                else
-                {
-                    throw new ArgumentException($"{this.Name} weight should be in the range of [1...50].");
-                }
+                this.weight = value;
             }
         }
 

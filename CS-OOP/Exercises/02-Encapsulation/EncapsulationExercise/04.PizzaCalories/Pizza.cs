@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace _04.PizzaCalories
@@ -10,10 +11,11 @@ namespace _04.PizzaCalories
         private Dough dough;
         private List<Topping> toppings;
 
-        public Pizza(string name)
+        public Pizza(string name, Dough dough)
         {
             this.Name = name;
-            this.toppings = new List<Topping>();
+            this.Dough = dough;
+            toppings = new List<Topping>();
         }
 
         public string Name
@@ -22,12 +24,7 @@ namespace _04.PizzaCalories
 
             private set
             {
-                if (value == string.Empty || value == null)
-                {
-                    throw new ArgumentException("Pizza name should be between 1 and 15 symbols.");
-                }
-
-                if (value.Length < 1 || value.Length > 15)
+                if (string.IsNullOrWhiteSpace(value) || value.Length < 1 || value.Length > 15)
                 {
                     throw new ArgumentException("Pizza name should be between 1 and 15 symbols.");
                 }
@@ -43,7 +40,7 @@ namespace _04.PizzaCalories
         public void AddTopping(Topping topping)
         {
 
-            if (this.Toppings.Count < 0 || this.Toppings.Count >= 10)
+            if (this.Toppings.Count == 10)
             {
                 throw new ArgumentException("Number of toppings should be in range [0..10].");
             }
@@ -53,16 +50,7 @@ namespace _04.PizzaCalories
 
         public double GetCalories()
         {
-            double pizzaCalories = 0;
-
-            pizzaCalories += this.Dough.GetDoughCalories();
-
-            foreach (Topping topping in this.Toppings)
-            {
-                pizzaCalories += topping.GetToppingCalories();
-            }
-
-            return pizzaCalories;
+            return dough.GetDoughCalories() + toppings.Sum(t => t.GetToppingCalories());
         }
     }
 }
