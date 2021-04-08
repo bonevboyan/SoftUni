@@ -40,7 +40,7 @@ namespace EasterRaces.Models.Races.Entities
             get => laps;
             private set
             {
-                if (laps < minLapCount)
+                if (value < minLapCount)
                 {
                     throw new ArgumentException(string.Format(ExceptionMessages.InvalidNumberOfLaps, minLapCount));
                 }

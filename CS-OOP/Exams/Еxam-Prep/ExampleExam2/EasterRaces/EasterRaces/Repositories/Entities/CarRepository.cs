@@ -6,6 +6,7 @@ using EasterRaces.Models.Cars.Contracts;
 using EasterRaces.Models.Cars.Entities;
 using EasterRaces.Models.Races.Entities;
 using EasterRaces.Repositories.Contracts;
+using EasterRaces.Utilities.Messages;
 
 namespace EasterRaces.Repositories.Entities
 {
@@ -18,6 +19,10 @@ namespace EasterRaces.Repositories.Entities
         }
         public void Add(ICar model)
         {
+            if (Models.ContainsKey(model.Model))
+            {
+                throw new ArgumentException(string.Format(ExceptionMessages.CarExists, model.Model));
+            }
             Models.Add(model.Model, model);
         }
 
@@ -29,7 +34,11 @@ namespace EasterRaces.Repositories.Entities
 
         public ICar GetByName(string name)
         {
-            return Models[name];
+            if (Models.ContainsKey(name))
+            {
+                return Models[name];
+            }
+            throw new InvalidOperationException(string.Format(ExceptionMessages.CarNotFound, name));
         }
 
         public bool Remove(ICar model)
