@@ -1,0 +1,21 @@
+CREATE DATABASE Hotel
+
+USE Hotel
+
+CREATE TABLE Employees
+(
+	Id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	FirstName VARCHAR(MAX),
+	LastName VARCHAR(MAX),
+	Title VARCHAR(MAX),
+	Notes VARCHAR(MAX)
+)
+
+CREATE TABLE Customers
+(
+	AccountNumber INT PRIMARY KEY NOT NULL,
+	FirstName VARCHAR(MAX),
+	LastName VARCHAR(MAX),
+	PhoneNumber INT,
+	Notes VARCHAR(MAX)
+)
