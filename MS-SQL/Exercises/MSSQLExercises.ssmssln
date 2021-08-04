@@ -7,14 +7,17 @@ Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "01-Databases-Introduction",
 EndProject
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "02-CRUD", "02-CRUD\02-CRUD.ssmssqlproj", "{D9C26D0C-6F29-49DF-A767-6913398DF09E}"
 EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "03-Table-Relations", "03-Table-Relations\03-Table-Relations.ssmssqlproj", "{D757E2DB-53F2-4965-896F-5E694FDD814F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{473DB957-CD52-422A-A4A5-3CC43E920C17}.Default|Default.ActiveCfg = Default
-		{F6611A8C-5718-4C4B-A7E6-7F9478D63B7E}.Default|Default.ActiveCfg = Default
 		{D9C26D0C-6F29-49DF-A767-6913398DF09E}.Default|Default.ActiveCfg = Default
+		{059F0ABE-84CC-4906-8E91-A2F7A17ED0E6}.Default|Default.ActiveCfg = Default
+		{D757E2DB-53F2-4965-896F-5E694FDD814F}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
