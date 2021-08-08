@@ -1,11 +1,11 @@
 USE Geography
 
-SELECT TOP 5
+SELECT TOP (5)
   d.CountryName AS [Country],
   ISNULL(d.PeakName, '(no highest peak)') AS [Highest Peak Name],
   ISNULL(d.Elevation, 0) AS [Highest Peak Elevation],
   CASE 
-  WHEN d.PeakName IS NOT NULL
+	WHEN d.PeakName IS NOT NULL
     THEN d.MountainRange
 	ELSE '(no mountain)' END AS [Mountain]
 FROM (
