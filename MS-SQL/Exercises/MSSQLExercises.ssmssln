@@ -15,6 +15,8 @@ Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "05-Subqueries-and-JOINs", "
 EndProject
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "06-Indices-and-Data-Aggregation", "06-Indices-and-Data-Aggregation\06-Indices-and-Data-Aggregation.ssmssqlproj", "{5FA5C9A3-0196-44DE-9390-8D2EF41F12D2}"
 EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "07-Functions-and-Stored-Procedures", "07-Functions-and-Stored-Procedures\07-Functions-and-Stored-Procedures.ssmssqlproj", "{53D28E4F-7B68-4326-ADBC-C00D2183ABCC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Default|Default = Default|Default
@@ -25,8 +27,9 @@ Global
 		{D757E2DB-53F2-4965-896F-5E694FDD814F}.Default|Default.ActiveCfg = Default
 		{92F4D637-A084-4D4E-9B5A-9AB299ADD31C}.Default|Default.ActiveCfg = Default
 		{132A47D6-A42E-4F06-A206-6CF7E8925761}.Default|Default.ActiveCfg = Default
-		{E07E1A09-379B-42C0-A5C5-15C7E1A99664}.Default|Default.ActiveCfg = Default
 		{5FA5C9A3-0196-44DE-9390-8D2EF41F12D2}.Default|Default.ActiveCfg = Default
+		{5D7092B9-C16A-4BF4-9368-8F141817B3B0}.Default|Default.ActiveCfg = Default
+		{53D28E4F-7B68-4326-ADBC-C00D2183ABCC}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

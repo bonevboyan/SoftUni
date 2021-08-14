@@ -1,0 +1,8 @@
+CREATE PROCEDURE usp_GetTownsStartingWith 
+	@String VARCHAR(30)
+AS
+	SELECT
+		Name AS Town
+	FROM Towns
+	WHERE LEFT(Name, LEN(@String)) = @String
+GO

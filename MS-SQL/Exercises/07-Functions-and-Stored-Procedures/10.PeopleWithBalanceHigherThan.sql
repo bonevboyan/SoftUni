@@ -1,0 +1,14 @@
+CREATE OR ALTER PROCEDURE usp_GetHoldersWithBalanceHigherThan
+	(@Balance DECIMAL(18,2))
+AS
+	SELECT
+		ah.FirstName AS [First Name],
+		ah.LastName AS [Last Name]
+	FROM AccountHolders AS ah
+	INNER JOIN Accounts AS a ON ah.Id = a.AccountHolderId
+	GROUP BY ah.FirstName, ah.LastName
+	HAVING SUM(a.Balance) > @Balance
+	ORDER BY ah.FirstName, ah.LastName
+GO
+
+EXEC usp_GetHoldersWithBalanceHigherThan 7000
