@@ -1,8 +1,11 @@
 CREATE FUNCTION ufn_CashInUsersGames
 (@gameName NVARCHAR(MAX))
-RETURNS TABLE
+RETURNS @Result TABLE (SumCash MONEY)
 AS
-	RETURN SELECT SUM(Cash) AS SumCash
+BEGIN
+	 
+	INSERT INTO @Result 
+	SELECT CAST (SUM(Cash) AS MONEY) AS SumCash
 	FROM (
 		SELECT
 			ug.Cash,
@@ -11,4 +14,5 @@ AS
 		INNER JOIN Games AS g ON ug.GameId = g.Id
 		WHERE g.Name = @gameName) AS CashMoney
     WHERE Row % 2 = 1
-	
+	RETURN
+END
