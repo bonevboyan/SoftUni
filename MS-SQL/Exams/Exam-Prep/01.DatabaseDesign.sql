@@ -1,0 +1,60 @@
+CREATE DATABASE TripService
+
+USE TripService
+
+CREATE TABLE Cities
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Name NVARCHAR(20) NOT NULL,
+	CountryCode CHAR(2) NOT NULL
+)
+
+CREATE TABLE Hotels
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Name NVARCHAR(30) NOT NULL,
+	CityId INT NOT NULL REFERENCES Cities(Id),
+	EmployeeCount INT NOT NULL,
+	BaseRate DECIMAL(18, 2)
+)
+
+CREATE TABLE Rooms
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Price DECIMAL(18, 2) NOT NULL,
+	Type NVARCHAR(20) NOT NULL,
+	Beds INT NOT NULL,
+	HotelId INT NOT NULL REFERENCES Hotels(Id)
+)
+
+CREATE TABLE Accounts
+(
+	Id INT IDENTITY PRIMARY KEY,
+	FirstName NVARCHAR(50) NOT NULL,
+	MiddleName NVARCHAR(20),
+	LastName NVARCHAR(50) NOT NULL,
+	CityId INT NOT NULL REFERENCES Cities(Id),
+	BirthDate DATE NOT NULL,
+	Email VARCHAR(100) NOT NULL UNIQUE
+)
+
+CREATE TABLE Trips
+(
+	Id INT IDENTITY PRIMARY KEY,
+	RoomId INT NOT NULL REFERENCES Rooms(Id),
+	BookDate DATE NOT NULL,
+	ArrivalDate DATE NOT NULL,
+	ReturnDate DATE NOT NULL,
+	CancelDate DATE,
+	CONSTRAINT ch_BookBeforeArrivalDate CHECK ( BookDate < ArrivalDate),
+	CONSTRAINT ch_ArrivalBeforeReturnDate CHECK ( ArrivalDate < ReturnDate)
+)
+
+CREATE TABLE AccountsTrips
+(
+	AccountId INT NOT NULL REFERENCES Accounts(Id),
+	TripId INT NOT NULL REFERENCES Trips(Id),
+	CONSTRAINT PK_AccountsTrips PRIMARY KEY(AccountId, TripId),
+	Luggage INT NOT NULL,
+	CONSTRAINT ch_LuggageIsAtLeast0 CHECK (Luggage >= 0)
+)
