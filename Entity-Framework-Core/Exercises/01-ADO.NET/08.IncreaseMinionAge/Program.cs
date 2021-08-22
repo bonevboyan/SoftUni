@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
+using System.Linq;
 
 namespace _08.IncreaseMinionAge
 {
@@ -6,7 +8,26 @@ namespace _08.IncreaseMinionAge
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            int[] ids = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+
+            using (SqlConnection con = new SqlConnection("Server=.;Integrated Security=true;Database=MinionsDB"))
+            {
+                con.Open();
+
+                foreach (int id in ids)
+                {
+                    SqlCommand command = new SqlCommand("UPDATE Minions SET Age += 1 WHERE Id = @id", con);
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                }
+
+                SqlDataReader reader = new SqlCommand("SELECT * FROM Minions", con).ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Console.WriteLine($"{reader["Name"]} - {reader["Age"]}");
+                }
+            }
         }
     }
 }
