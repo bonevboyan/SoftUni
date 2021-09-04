@@ -26,15 +26,9 @@ namespace MiniORM
 
         public IReadOnlyCollection<T> Removed => this.removed.AsReadOnly();
 
-        public void Add(T item)
-        {
-            this.added.Add(item);
-        }
+        public void Add(T item) => this.added.Add(item);
 
-        public void Remove(T item)
-        {
-            this.removed.Add(item);
-        }
+        public void Remove(T item) => this.removed.Add(item);
 
         public IEnumerable<T> GetModifiedEntities(DbSet<T> dbSet)
         {
