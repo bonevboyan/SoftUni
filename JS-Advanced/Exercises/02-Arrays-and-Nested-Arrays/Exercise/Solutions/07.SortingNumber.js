@@ -3,7 +3,7 @@ function sort(arr){
         acc.push(array[index]);
         acc.push(array[array.length - index - 1]);
         return acc;
-    }, [])
+    }, []).slice(0, arr.length)
 }
 console.log(
 sort([1, 65, 3, 52, 48, 63, 31, -3, 18, 56]))
