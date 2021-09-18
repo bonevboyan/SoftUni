@@ -1,18 +1,11 @@
 function find(arr){
-    let newArr = []
-    let longestArr = []
-    let prevElement = -Infinity
-    for (let index = 0; index < arr.length; index++) {
-        if(prevElement < arr[index]){
-            newArr.push(arr[index])
-        }else{
-            if(longestArr.length < newArr.length){
-                longestArr = newArr
-            }
-            newArr = []
-        }
-        prevElement = arr[index]
-        
-    }
-    console.log(longestArr)
+    let biggestNum = arr[0];
+    let longestArr = arr.reduce((acc, curr, index, array) => {
+        if(biggestNum <= curr){
+            acc.push(curr);
+            biggestNum = curr;
+        } 
+        return acc;
+    }, [])
+    return longestArr;
 }
