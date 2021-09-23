@@ -1,42 +1,21 @@
 function storeCatalogue(arr) {
-    let products = new Map();
+    let catalogue = {};
+
     for (let line of arr) {
-        let data = line.split(/\b\s:\s\b/);
-        let letter = line[0][0];
-        if (!products.has(letter)) {
-            products.set(letter, data);
+        let [item, price] = line.split(' : ');
+
+        if (catalogue[item[0]] === undefined) {
+            catalogue[item[0]] = {}
         }
-        else {
-            products.set(letter,products.get(letter)+","+data);
-        }
+
+        catalogue[item[0]][item] = price;
     }
-    let myProducts = new Map([...products.entries()].sort());
-    for (let [letter, items] of myProducts) {
-        console.log(letter);
-        if(items.constructor !== Array){
-            items = items.split(',');
-        }
-        let products = [];
-        for (let i = 0; i < items.length; i+=2) {
-            let product = items[i];
-            let price = items[i+1];
-            let line = product+": "+price;
-            products.push(line);
-            products.sort();
-        }
-        for (let product of products) {
-            console.log(`  ${product}`);
+
+    let sortedByFirstLetter = Object.entries(catalogue).sort((a, b) => a[0].localeCompare(b[0]));
+    for (let line of sortedByFirstLetter) {
+        console.log(line[0]);
+        for (let [itemName, itemPrice] of Object.entries(line[1]).sort((a, b) => a[0].localeCompare(b[0]))) {
+            console.log(` ${itemName}: ${itemPrice}`)
         }
     }
 }
- 
-storeCatalogue([
-    'Appricot : 20.4',
-    'Fridge : 1500',
-    'TV : 1499',
-    'Deodorant : 10',
-    'Boiler : 300',
-    'Apple : 1.25',
-    'Anti-Bug Spray : 15',
-    'T-Shirt : 10'
-]);
