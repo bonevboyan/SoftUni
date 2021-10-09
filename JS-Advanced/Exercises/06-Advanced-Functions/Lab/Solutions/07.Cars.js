@@ -12,11 +12,11 @@ function cars(input) {
                 result.push(`${key}:${objList[name][key]}`);
             }
             console.log(result.join(','));
-        },
-    }
+        }
+    };
 
     input.forEach(line => {
         const [command, objName, x, z] = line.split(' ');
         commandProcessor[command](objName, x, z);
-    })
+    });
 }
