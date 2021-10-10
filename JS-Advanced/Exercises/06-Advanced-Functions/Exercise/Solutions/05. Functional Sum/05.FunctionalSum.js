@@ -1,12 +1,12 @@
-let bbb = (function functionalSum() {
-    let sum = 0;
+function add(init) {
+    let sum = init;
 
-    function add(num) {
+    function addUp(num) {
         sum += num;
-        return add;
+        return addUp;
     }
-    add.toString = () => sum;
 
-    return add;
-}());
-console.log(bbb(6)(5).toString());
+    addUp.toString = () => sum;
+
+    return addUp;
+}
