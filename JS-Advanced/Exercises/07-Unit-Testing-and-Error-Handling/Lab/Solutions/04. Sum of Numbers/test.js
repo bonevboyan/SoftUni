@@ -1,8 +1,8 @@
 const { assert } = require('chai');
-const subNumbers = require('./subNumbers');
+const { sum } = require('./subNumbers');
 
-describe("title", function () {
-    it("title", function () { 
-        assert.equal(subNumbers([5, 2]), 7);
+describe("sum", function () {
+    it("should add numbers correctly", function () { 
+        assert.equal(sum([5, 2]), 7);
     });
 });
