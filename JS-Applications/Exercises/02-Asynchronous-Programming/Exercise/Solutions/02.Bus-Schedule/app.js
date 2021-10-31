@@ -27,6 +27,7 @@ function solve() {
     
         } catch(error) {
             infoDiv.textContent = "Error" + error.message;
+            arriveBtn.disabled = true;
         }
     }
 
