@@ -12,10 +12,8 @@ function attachEvents() {
     }
     
     async function displayWeather(e) {
-        if(isError){
-            forecastDiv.innerHTML = '<div id="current"><div class="label">Current conditions</div></div><div id="upcoming"><div class="label">Three-day forecast</div></div>'
-            isError = false;
-        }
+        forecastDiv.innerHTML = '<div id="current"><div class="label">Current conditions</div></div><div id="upcoming"><div class="label">Three-day forecast</div></div>'
+        
         try {
             let response = await fetch("http://localhost:3030/jsonstore/forecaster/locations");
             if (response.ok == false) {
