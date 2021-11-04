@@ -1,71 +1,63 @@
 function attachEvents() {
-    document.getElementById("btnLoadPosts").addEventListener("click", onLoad);
-    document.getElementById("btnViewPost").addEventListener("click", onView);
+    document.getElementById('btnLoadPosts').addEventListener('click', getPosts);
+    document.getElementById('btnViewPost').addEventListener('click', displayPost);
 
-    async function onLoad(e) {
-        try {
-            let response = await fetch("http://localhost:3030/jsonstore/blog/posts");
-    
-            if (response.ok == false) {
-                throw new Error(`${response.status} ${response.statusText}`);
-            }
-    
-            let posts = await response.json();
-    
-            let select = document.getElementById("posts");
-    
-            for (const key in posts) {
-                let option = document.createElement("option");
-                option.setAttribute("value", key);
-    
-                option.textContent = posts[key].title;
-    
-                select.appendChild(option);
-            }
-        } catch (error) {
-            console.log(error.message);
-        }
+    let select = document.getElementById('posts');
+
+    async function getPosts() {
+        let response = await fetch("http://localhost:3030/jsonstore/blog/posts");
+        let data = await response.json();
+
+        Object.values(data).map(createOption).forEach(x => select.appendChild(x));
     }
 
-    async function onView(e) {
-        try {
-            let postId = document.getElementById("posts").value.value;
+    function createOption(post) {
+        let result = document.createElement('option');
+        result.textContent = post.title;
+        result.value = post.id;
 
-            let response = await fetch(`http://localhost:3030/jsonstore/blog/comments/${postId}`);
-    
-            if (response.ok == false) {
-                throw new Error(`${response.status} ${response.statusText}`);
-            }
-    
-            let comments = await response.json();
-    
-            let postComments = document.getElementById("post-comments");
-    
-            for (const comment in comments) {
-                let option = document.createElement("li");
-                option.setAttribute("id", key);
-    
-                option.textContent = comments[key].text;
-    
-                postComments.appendChild(option);
-            }
+        return result;
+    }
 
-            response = await fetch(`http://localhost:3030/jsonstore/blog/posts/${postId}`);
-    
-            if (response.ok == false) {
-                throw new Error(`${response.status} ${response.statusText}`);
-            }
-    
-            let post = await response.json();
+    function displayPost() {
+        let postId = document.getElementById('posts').value;
+        getCommentsByPostId(postId);
 
-            document.getElementById("post-title").textContent = post.title;
-            document.getElementById("post-body").textContent = post.body;
+    }
+
+    async function getCommentsByPostId(postId) {
+
+        let commentsUl = document.getElementById('post-comments');
+        commentsUl.innerHTML = '';
+
+        let [postResponse, commentsResponse] = await Promise.all([
+            fetch(`http://localhost:3030/jsonstore/blog/posts/${postId}`),
+            fetch("http://localhost:3030/jsonstore/blog/comments")
+        ]);
 
 
-        } catch (error) {
-            console.log(error.message);
-        }
+        let postData = await postResponse.json();
+
+        document.getElementById('post-title').textContent = postData.title;
+        document.getElementById('post-body').textContent = postData.body;
+
+        let commentsData = await commentsResponse.json();
+        let comments = Object.values(commentsData).filter(comment => comment.postId === postId);
+
+
+        comments.map(createComment).forEach(c => commentsUl.appendChild(c));
+    }
+
+    function createComment(comment) {
+        let result = document.createElement('li');
+        result.textContent = comment.text;
+        result.id = comment.id;
+        return result;
     }
 }
+
+attachEvents();
+
+
 
 attachEvents();

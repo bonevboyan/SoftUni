@@ -10,16 +10,28 @@ function attachEvents() {
         "Rain": "☂",
         "Degrees": "°"
     }
-    
+
+    async function getLocations() {
+        let response = await fetch("http://localhost:3030/jsonstore/forecaster/locations");
+        if (response.ok == false) {
+            throw new Error(`${response.status} ${response.statusText}`)
+        }
+        return await response.json();
+    }
+
+    async function getWeather(time, locationCode) {
+        response = await fetch(`http://localhost:3030/jsonstore/forecaster/${time}/${locationCode}`)
+        if (response.ok == false) {
+            throw new Error(`${response.status} ${response.statusText}`)
+        }
+        return await response.json();
+    }
+
     async function displayWeather(e) {
         forecastDiv.innerHTML = '<div id="current"><div class="label">Current conditions</div></div><div id="upcoming"><div class="label">Three-day forecast</div></div>'
-        
+
         try {
-            let response = await fetch("http://localhost:3030/jsonstore/forecaster/locations");
-            if (response.ok == false) {
-                throw new Error(`${response.status} ${response.statusText}`)
-            }
-            let locations = await response.json();
+            let locations = await getLocations();
 
             let inputLocation = document.getElementById("location").value;
             let location = locations.find(x => x.name == inputLocation);
@@ -28,17 +40,7 @@ function attachEvents() {
                 throw new Error('Invalid Input');
             }
 
-            response = await fetch(`http://localhost:3030/jsonstore/forecaster/today/${location.code}`)
-            if (response.ok == false) {
-                throw new Error(`${response.status} ${response.statusText}`)
-            }
-            let today = await response.json();
-
-            response = await fetch(`http://localhost:3030/jsonstore/forecaster/upcoming/${location.code}`)
-            if (response.ok == false) {
-                throw new Error(`${response.status} ${response.statusText}`)
-            }
-            let upcoming = await response.json();
+            let [today, upcoming] = await Promise.all([getWeather("today", location.code), getWeather("upcoming", location.code)]);
 
             let forecast = document.createElement("div");
             forecast.classList.add("forecasts");
@@ -54,18 +56,18 @@ function attachEvents() {
             let forecastInfo = document.createElement("div");
             forecastInfo.classList.add("forecast-info");
 
-            forecastInfo.innerHTML = 
+            forecastInfo.innerHTML =
                 `<span class="upcoming">` +
-                `<span class="symbol">${symbols[upcoming.forecast[0].condition]}</span>`+
-                `<span class="forecast-data">${upcoming.forecast[0].low}°/${upcoming.forecast[0].high}°</span>`+
-                `<span class="forecast-data">${upcoming.forecast[0].condition}</span> </span>`+
-                `<span class="upcoming">`+
-                `<span class="symbol">${symbols[upcoming.forecast[1].condition]}</span>`+
-                `<span class="forecast-data">${upcoming.forecast[1].low}°/${upcoming.forecast[0].high}°</span>`+
-                `<span class="forecast-data">${upcoming.forecast[1].condition}</span> </span>`+
-                `<span class="upcoming">`+
-                `<span class="symbol">${symbols[upcoming.forecast[2].condition]}</span>`+
-                `<span class="forecast-data">${upcoming.forecast[2].low}°/${upcoming.forecast[0].high}°</span>`+
+                `<span class="symbol">${symbols[upcoming.forecast[0].condition]}</span>` +
+                `<span class="forecast-data">${upcoming.forecast[0].low}°/${upcoming.forecast[0].high}°</span>` +
+                `<span class="forecast-data">${upcoming.forecast[0].condition}</span> </span>` +
+                `<span class="upcoming">` +
+                `<span class="symbol">${symbols[upcoming.forecast[1].condition]}</span>` +
+                `<span class="forecast-data">${upcoming.forecast[1].low}°/${upcoming.forecast[1].high}°</span>` +
+                `<span class="forecast-data">${upcoming.forecast[1].condition}</span> </span>` +
+                `<span class="upcoming">` +
+                `<span class="symbol">${symbols[upcoming.forecast[2].condition]}</span>` +
+                `<span class="forecast-data">${upcoming.forecast[2].low}°/${upcoming.forecast[2].high}°</span>` +
                 `<span class="forecast-data">${upcoming.forecast[2].condition}</span> </span>`
 
             forecastDiv.children[1].appendChild(forecastInfo);
@@ -73,6 +75,7 @@ function attachEvents() {
 
         } catch (error) {
             forecastDiv.children[0].children[0].textContent = 'Error';
+            console.log(error.message)
         }
     }
 }
