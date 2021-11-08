@@ -1,48 +1,46 @@
-window.addEventListener('DOMContentLoaded', () => {
+function attachEvents() {
     const form = document.querySelector('form');
     form.addEventListener('submit', register);
+}
+async function register(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const email = formData.get('email');
+    const password = formData.get('password');
+    const rePass = formData.get('rePass');
 
-    async function register(event) {
-        event.preventDefault();
-        const formData = [...new FormData(event.target).entries()].reduce((p, [k, v]) => Object.assign(p, { [k]: v }), {});
-
-        if (formData.email == '' || formData.password == '') {
+    try {
+        if (email == '' || password == '') {
             return alert('All field must be filled!');
-        } else if (formData.password != formData.rePass) {
+        } else if (password != rePass) {
             return alert("Passwords don't match!");
         }
 
+        const response = await fetch('http://localhost:3030/users/register', { 
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({email, password})
+        });
 
-        postUser(formData, event);
-
-    }
-
-    async function postUser(user, event) {
-        try {
-            const response = await fetch('http://localhost:3030/users/register', {
-                method: 'post',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(user)
-            });
-
-            if (response.ok != true) {
-                const error = await response.json();
-                return alert(error.message);
-            }
-
-            const data = await response.json();
-
-            sessionStorage.setItem('userData', JSON.stringify(data));
-
-
-
-            window.location = './index.html';
-
-            alert('Registered successfully!');
-            event.target.reset();
+        if (!response.ok) {
+            const error = await response.json();
+            return alert(error.message);
         }
-        catch (error) {
-            alert(error.message);
-        }
+
+        const data = await response.json();
+        const userData = {
+            email: data.email,
+            id: data._id,
+            token: data.accessToken
+        };
+
+        sessionStorage.setItem('userData', JSON.stringify(userData));
+        window.location = './index.html';
+
+        alert('Registered successfully!');
+        event.target.reset();
     }
-})
+    catch (error) {
+        alert(error.message);
+    }
+}

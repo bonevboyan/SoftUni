@@ -1,20 +1,18 @@
-let userData = null;
-window.addEventListener('DOMContentLoaded', () => {
+function attachEvents() {
     userData = JSON.parse(sessionStorage.getItem('userData'));
-    if (userData != null) {
+    if(userData != null){
+        document.querySelector('.email span').textContent = userData.email;
         document.getElementById('guest').style.display = 'none';
         document.querySelector('#addForm .add').disabled = false;
-        document.getElementById('logout').addEventListener('click', logout);
-        document.querySelector('.email span').textContent = userData.email;
+        document.getElementById('logout').addEventListener('click', logout)
     }
-    else {
+    else{
         document.getElementById('user').style.display = 'none';
     }
     document.querySelector('.load').addEventListener('click', loadData)
     document.getElementById('addForm').addEventListener('submit', addCatch)
     document.getElementById('catches').addEventListener('click', invokeHandler);
-})
-
+}
 
 function logout() {
     fetch('http://localhost:3030/users/logout', {
@@ -42,7 +40,7 @@ async function updateCatch(event) {
     const id = event.target.getAttribute('data-id');
     const token = userData.token;
 
-    try {
+    try{
         const response = await fetch('http://localhost:3030/data/catches/' + id, {
             method: 'put',
             headers: {
@@ -50,17 +48,17 @@ async function updateCatch(event) {
                 'X-Authorization': token
             },
             body: JSON.stringify({
-                angler: angler.value, weight: weight.value, species: species.value,
-                location: location.value, bait: bait.value, 'captureTime ': captureTime.value
+                angler: angler.value, weight: weight.value, species: species.value, 
+                location: location.value, bait: bait.value, captureTime: captureTime.value
             })
         });
 
-        if (response.ok != true) {
+        if(response.ok != true){
             const error = await response.json();
             throw new Error(error.message);
         }
-    }
-    catch (err) {
+    }   
+    catch(err) {
         alert(err.message);
     }
 }
@@ -75,30 +73,30 @@ async function deleteCatch(event) {
             headers: { 'X-Authorization': token }
         });
 
-        if (response.ok != true) {
+        if(response.ok != true){
             const error = await response.json();
             throw new Error(error.message);
         }
         loadData();
     }
-    catch (err) {
+    catch(err) {
         alert(err.message);
     }
 }
 
 async function addCatch(event) {
     event.preventDefault();
-    if (!userData) {
-        window.location = './login.html';
+    if(!userData){
+        window.location ='./login.html';
         return;
     }
 
     const formData = new FormData(event.target);
 
-    const data = [...formData.entries()].reduce((a, [k, v]) => Object.assign(a, { [k]: v }), {});
-
+    const data = [...formData.entries()].reduce((a, [k, v]) => Object.assign(a, {[k]: v}), {});
+    
     try {
-        if (Object.values(data).some(x => x == '')) {
+        if(Object.values(data).some(x => x == '')){
             throw new Error('All fields are required!')
         }
 
@@ -111,7 +109,7 @@ async function addCatch(event) {
             body: JSON.stringify(data)
         });
 
-        if (response.ok != true) {
+        if(response.ok != true){
             const error = await response.json();
             throw new Error(error.message);
         }
@@ -119,7 +117,7 @@ async function addCatch(event) {
         loadData();
         event.target.reset();
     }
-    catch (err) {
+    catch(err) {
         alert(err.message);
     }
 }
@@ -127,17 +125,17 @@ async function addCatch(event) {
 async function loadData() {
     const response = await fetch('http://localhost:3030/data/catches/');
     const data = await response.json();
-
+    
     document.getElementById('catches').replaceChildren(...data.map(createDiv));
 
     function createDiv(data) {
         const isOwner = (userData && data._ownerId == userData.id);
-        if (userData && data._ownerId == userData.id) {
+        if(userData && data._ownerId == userData.id){
 
         }
         const element = document.createElement('div');
         element.className = 'catch'
-        element.innerHTML = `<label>Angler</label>
+        element.innerHTML =`<label>Angler</label>
 <input type="text" class="angler" value="${data.angler}"${!isOwner ? 'disabled' : ''}>
 <label>Weight</label>
 <input type="text" class="weight" value="${data.weight}"${!isOwner ? 'disabled' : ''}>

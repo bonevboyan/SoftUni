@@ -81,11 +81,11 @@ async function attachEvents() {
             return;
         }
 
-        const editedBookKey = editForm.getAttribute("key"); 
+        const editedBookKey = editForm.getAttribute("key");
 
         await editBook(editedBook, editedBookKey);
         const oldBook = table.querySelector(`tr[key="${editedBookKey}"]`);
-        
+
         editTable(oldBook, editedBook);
     }
 
@@ -105,7 +105,7 @@ async function attachEvents() {
         }
     }
 
-    async function editBook(newBook, id){
+    async function editBook(newBook, id) {
         try {
             const response = await fetch(`${url}/${id}`, {
                 method: 'put',
@@ -165,8 +165,7 @@ async function attachEvents() {
         }
     }
 
-    function editTable(oldBook, editedBook)
-    {
+    function editTable(oldBook, editedBook) {
         oldBook.children[0].textContent = editedBook.title;
         oldBook.children[1].textContent = editedBook.author;
     }
@@ -177,12 +176,17 @@ async function attachEvents() {
 
         for (const key in book) {
             if (key != '_id') {
-                const newCell = document.createElement('td');
-                newCell.textContent = book[key];
 
-                newRow.appendChild(newCell);
             }
         }
+
+        const titleCell = document.createElement('td');
+        titleCell.textContent = book['title'];
+        newRow.appendChild(titleCell);
+
+        const authorCell = document.createElement('td');
+        authorCell.textContent = book['author'];
+        newRow.appendChild(authorCell);
 
         const buttonCell = document.createElement('td');
 
