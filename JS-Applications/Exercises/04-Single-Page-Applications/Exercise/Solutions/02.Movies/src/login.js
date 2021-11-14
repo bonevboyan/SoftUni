@@ -39,7 +39,9 @@ async function onLogin(event) {
             token: data.accessToken
         }));
 
+        alert('Logged-in successfuly!');
         form.reset();
+
         updateNav();
         showHome();
     } catch (error) {

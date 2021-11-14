@@ -4,24 +4,28 @@ import { showDetails } from './details.js';
 
 let moviesCache = null;
 let lastLoaded = null;
-const maxAge = 60000;
+const maxAge = 5000;
 
 const section = document.getElementById('home-page');
 const catalog = section.querySelector('.card-deck.d-flex.justify-content-center');
 section.querySelector('#createLink').addEventListener('click', (event) => {
     event.preventDefault();
-    showCreate();
+    if (JSON.parse(sessionStorage.getItem('userData')) != null) {
+        showCreate();
+    } else {
+        alert('Adding movies is available only for logged-in users.')
+    }
 });
 
 catalog.addEventListener("click", (event) => {
     event.preventDefault();
     let target = event.target;
 
-    if(target.tagName == 'BUTTON'){
+    if (target.tagName == 'BUTTON') {
         target = target.parentElement;
     }
 
-    if(target.tagName == 'A'){
+    if (target.tagName == 'A') {
         const id = target.dataset.id;
         showDetails(id);
         console.log(id);
@@ -41,7 +45,7 @@ async function getMovies() {
 
     const now = Date.now();
 
-    if(moviesCache == null || (now - lastLoaded) > maxAge) {
+    if (moviesCache == null || (now - lastLoaded) > maxAge) {
         lastLoaded = now;
 
         const res = await fetch('http://localhost:3030/data/movies');

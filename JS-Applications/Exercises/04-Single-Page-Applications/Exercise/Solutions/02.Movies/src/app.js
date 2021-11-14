@@ -23,10 +23,6 @@ nav.addEventListener('click', (event) => {
     }
 });
 
-updateNav();
-
-showHome();
-
 export function updateNav() {
     const userData = JSON.parse(sessionStorage.getItem('userData'));
 
@@ -56,3 +52,7 @@ async function onLogout(event) {
     updateNav();
     showLogin();
 }
+
+updateNav();
+
+showHome();
