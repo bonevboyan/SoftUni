@@ -1,6 +1,5 @@
 import { showView } from './dom.js';
 import { showDetails } from './details.js';
-import { showHome } from './home.js';
 
 const section = document.getElementById('edit-movie');
 const form = section.querySelector('form');
@@ -48,7 +47,7 @@ async function onSubmit(event) {
         form.reset();
 
         alert('Edited movie successfuly!');
-        showHome();
+        showDetails(section.getAttribute('id'));
     } catch (error) {
         alert(error.message);
     }
