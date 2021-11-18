@@ -8,7 +8,7 @@ section.remove();
 
 export async function showEdit(id) {
     const movie = await getMovie(id);
-    
+
     section.setAttribute('id', id);
     section.querySelector('[name="title"]').value = movie.title;
     section.querySelector('[name="description"]').value = movie.description;
