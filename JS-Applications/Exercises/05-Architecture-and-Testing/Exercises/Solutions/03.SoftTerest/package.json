@@ -1,19 +1,21 @@
 {
-  "name": "softterest",
+  "name": "03.SoftTerest",
   "version": "1.0.0",
   "description": "",
-  "main": "index.html",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
   "scripts": {
     "test": "mocha tests",
     "start": "http-server -a localhost -p 3000 -P http://localhost:3000?"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {
-    "chai": "4.3.3",
-    "http-server": "0.12.3",
-    "mocha": "8.3.0",
-    "playwright-chromium": "1.9.1"
+  "dependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.1.3",
+    "playwright-chromium": "^1.16.3"
   }
 }

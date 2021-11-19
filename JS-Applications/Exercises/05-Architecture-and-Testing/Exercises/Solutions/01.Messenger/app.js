@@ -20,7 +20,7 @@ async function getMessages() {
     const data = await response.json();
 
     const messages = Object.values(data).map(v => `${v.author}: ${v.content}`).join('\n');
-    document.getElementById('messages').value = messages;
+    document.getElementById('messages').textContent = messages;
 }
 
 async function sendMessage(message) {
