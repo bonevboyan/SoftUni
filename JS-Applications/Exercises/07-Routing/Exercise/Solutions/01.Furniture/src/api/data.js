@@ -18,8 +18,8 @@ export async function getFurnitureById(id) {
     return api.get(`${furnitureEndpoint}/${id}`);
 }
 
-export async function updateFurniture(data) {
-    return api.put(furnitureEndpoint, data);
+export async function updateFurniture(id, data) {
+    return api.put(`${furnitureEndpoint}/${id}`, data);
 }
 
 export async function deleteFurniture(id) {

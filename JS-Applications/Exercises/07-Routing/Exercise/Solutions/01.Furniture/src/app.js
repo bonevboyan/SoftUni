@@ -7,6 +7,9 @@ import { showCreate } from "./views/create.js"
 import { showMyFurniture } from "./views/myFurniture.js"
 import { showDetails } from "./views/details.js"
 import { showEdit } from "./views/edit.js"
+import { logout } from "./api/data.js"
+
+const main = document.querySelector('.container');
 
 page(decorateContext);
 page("/", showDashboard);
@@ -17,9 +20,14 @@ page("/my-furniture", showMyFurniture);
 page("/details/:id", showDetails);
 page("/edit/:id", showEdit);
 
-page.start();
 updateUserNav();
-const main = document.querySelector('.container');
+page.start();
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await logout();
+    updateUserNav();
+    page.redirect('/');
+})
 
 function decorateContext(ctx, next) {
     ctx.render = (content) => render(content, main);
