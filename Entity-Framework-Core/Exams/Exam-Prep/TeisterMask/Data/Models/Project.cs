@@ -15,7 +15,6 @@ namespace TeisterMask.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MinLength(2)]
         [MaxLength(40)]
         public string Name { get; set; }
 
@@ -24,6 +23,6 @@ namespace TeisterMask.Data.Models
 
         public DateTime? DueDate { get; set; }
 
-        public ICollection<Task> Tasks { get; set; }
+        public virtual ICollection<Task> Tasks { get; set; }
     }
 }

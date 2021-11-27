@@ -26,18 +26,10 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<EmployeeTask>()
-                .HasKey(et => new { et.TaskId, et.EmployeeId });
-
-            modelBuilder.Entity<EmployeeTask>()
-                .HasOne(sc => sc.Task)
-                .WithMany(s => s.EmployeesTasks)
-                .HasForeignKey(sc => sc.TaskId);
-
-            modelBuilder.Entity<EmployeeTask>()
-                .HasOne(sc => sc.Employee)
-                .WithMany(s => s.EmployeesTasks)
-                .HasForeignKey(sc => sc.EmployeeId);
+            modelBuilder.Entity<EmployeeTask>(e =>
+            {
+                e.HasKey(et => new { et.EmployeeId, et.TaskId });
+            });
         }
     }
 }
