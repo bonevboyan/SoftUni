@@ -1,11 +1,11 @@
-﻿namespace TeisterMask.Data.Models
+﻿namespace TeisterMask.Data.Models.Enums
 {
     public enum LabelType
     {
-        Priority,
-        CSharpAdvanced,
-        JavaAdvanced,
-        EntityFramework,
-        Hibernate
+        Priority = 0, 
+        CSharpAdvanced = 1, 
+        JavaAdvanced = 2, 
+        EntityFramework = 3, 
+        Hibernate = 4,
     }
 }
