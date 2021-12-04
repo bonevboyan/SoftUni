@@ -5,7 +5,7 @@ import { showLogin } from "./views/login.js"
 import { showRegister } from "./views/register.js"
 import { showHome } from "./views/home.js"
 import { showCreate } from "./views/create.js"
-import { showProfile } from "./views/profile.js"
+import { showSearch } from "./views/search.js"
 import { showDetails } from "./views/details.js"
 import { showEdit } from "./views/edit.js"
 import { logout } from "./api/data.js"
@@ -18,7 +18,7 @@ page("/catalog", showCatalog)
 page("/login", showLogin);
 page("/register", showRegister);
 page("/create", showCreate);
-page("/profile", showProfile);
+page("/search", showSearch);
 page("/details/:id", showDetails);
 page("/edit/:id", showEdit);
 
@@ -38,12 +38,11 @@ function updateUserNav() {
     const userId = getUserData();
 
     if (userId != null) {
-        document.querySelector('.user').style.display = 'block';
-        document.querySelector('.guest').style.display = 'none';
-        document.querySelector('.profile span').textContent = `Welcome, ${userId.email}`
+        [...document.querySelectorAll('.user')].forEach(x => x.style.display = 'inline-block');
+        [...document.querySelectorAll('.guest')].forEach(x => x.style.display = 'none');
     } else {
-        document.querySelector('.user').style.display = 'none';
-        document.querySelector('.guest').style.display = 'block';
+        [...document.querySelectorAll('.user')].forEach(x => x.style.display = 'none');
+        [...document.querySelectorAll('.guest')].forEach(x => x.style.display = 'inline-block');
     }
 }
 

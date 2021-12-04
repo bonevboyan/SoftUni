@@ -7,6 +7,10 @@ async function request(url, options) {
         const res = await fetch(host + url, options);
 
         if (res.ok == false) {
+            if (res.status == 403) {
+                clearUserData();
+            }
+
             const error = await res.json();
             throw new Error(error.message);
         }
@@ -70,7 +74,12 @@ export async function login(email, password) {
 }
 
 export async function register(email, password) {
-    const result = await post('/users/register', { username, email, password, gender });
+    console.log(email);
+    console.log(password);
+
+    
+    const result = await post('/users/register', { email, password });
+
 
     const userData = {
         email: result.email,
