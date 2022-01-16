@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using BasicWebServer.Server;
 using BasicWebServer.Server.HTTP;
 using BasicWebServer.Server.Responses;
@@ -14,10 +15,10 @@ namespace BasicWebServer.Demo
 <input type='submit' value ='Save' />
 </form>";
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
 
-            new HttpServer(routes => routes
+            await new HttpServer(routes => routes
                 .MapGet("/", new TextResponse("Hello from the server!"))
                 .MapGet("/HTML", new HtmlResponse(HtmlForm))
                 .MapPost("/HTML", new TextResponse("", Startup.AddFormDataAction))
