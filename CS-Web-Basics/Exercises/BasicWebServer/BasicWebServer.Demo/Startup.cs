@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using BasicWebServer.Server;
 using BasicWebServer.Server.HTTP;
@@ -15,15 +18,54 @@ namespace BasicWebServer.Demo
 <input type='submit' value ='Save' />
 </form>";
 
+        private const string DownloadForm = 
+@"<form action='/Content' method='POST'>
+   <input type='submit' value ='Download Sites Content' /> 
+</form>";
+
+        private const string FileName = "content.txt";
+
         static async Task Main(string[] args)
         {
+            await DownloadSitesAsTextFile(FileName, new string[] { "https://judge.softuni.bg", "https://softuni.org" });
 
             await new HttpServer(routes => routes
                 .MapGet("/", new TextResponse("Hello from the server!"))
                 .MapGet("/HTML", new HtmlResponse(HtmlForm))
-                .MapPost("/HTML", new TextResponse("", Startup.AddFormDataAction))
+                .MapPost("/HTML", new TextResponse("", AddFormDataAction))
+                .MapGet("/Content", new HtmlResponse(DownloadForm))
+                .MapPost("/Content", new TextFileResponse(FileName))
                 .MapGet("/Redirect", new RedirectResponse("https://softuni.org")))
             .Start();
+        }
+
+        private static async Task<string> DownloadWebSiteContent(string url)
+        {
+            var httpClient = new HttpClient();
+            using (httpClient)
+            {
+                var response = await httpClient.GetAsync(url);
+
+                var html = await response.Content.ReadAsStringAsync();
+
+                return html.Substring(0, 2000);
+            }
+        }
+
+        private static async Task DownloadSitesAsTextFile(string fileName, string[] urls)
+        {
+            var downloads = new List<Task<string>>();
+
+            foreach (var url in urls)
+            {
+                downloads.Add(DownloadWebSiteContent(url));
+
+                var responses = await Task.WhenAll(downloads);
+
+                var responsesString = string.Join(Environment.NewLine + new string('-', 100), responses);
+
+                await File.WriteAllTextAsync(fileName, responsesString);
+            }
         }
 
         private static void AddFormDataAction(Request request, Response response)
