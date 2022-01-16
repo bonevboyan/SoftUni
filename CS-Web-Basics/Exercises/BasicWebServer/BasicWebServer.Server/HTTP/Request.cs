@@ -71,7 +71,7 @@ namespace BasicWebServer.Server.HTTP
         {
             try
             {
-                return Enum.Parse<Method>(method);
+                return (Method) Enum.Parse(typeof(Method), method, true);
             }
             catch (Exception)
             {
