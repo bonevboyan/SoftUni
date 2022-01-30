@@ -10,7 +10,7 @@ namespace BasicWebServer.Server.Responses
 {
     public class BadRequestResponse : Response
     {
-        public BadRequestResponse(string content, string contentType)
+        public BadRequestResponse()
             :base(StatusCode.BadRequest)
         {
             
