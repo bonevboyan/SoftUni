@@ -51,10 +51,10 @@ namespace BasicWebServer.Demo
                 .MapPost<HomeController>("/Content", c => c.DownloadContent())
                 .MapGet<HomeController>("/Cookies", c => c.Cookies())
                 .MapGet<HomeController>("/Session", c => c.Session())
-                .MapGet<HomeController>("/Login", new HtmlResponse(LoginForm))
-                .MapPost<HomeController>("/Login", new HtmlResponse("", LoginAction))
-                .MapGet<HomeController>("/Logout", new HtmlResponse("", LogoutAction))
-                .MapGet<HomeController>("/UserProfile", new HtmlResponse("", GetUserDataAction))
+                //.MapGet<HomeController>("/Login", new HtmlResponse(LoginForm))
+                //.MapPost<HomeController>("/Login", new HtmlResponse("", LoginAction))
+                //.MapGet<HomeController>("/Logout", new HtmlResponse("", LogoutAction))
+                //.MapGet<HomeController>("/UserProfile", new HtmlResponse("", GetUserDataAction))
                 .MapGet<HomeController>("/Redirect", c => c.Redirect()))
             .Start();
         }
