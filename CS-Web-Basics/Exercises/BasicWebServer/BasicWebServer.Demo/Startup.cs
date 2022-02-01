@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using BasicWebServer.Server;
+using BasicWebServer.Server.Controllers;
 using BasicWebServer.Server.HTTP;
 using BasicWebServer.Server.Responses;
 
@@ -21,10 +22,10 @@ namespace BasicWebServer.Demo
 <input type='submit' value ='Save' />
 </form>";
 
-        private const string DownloadForm = 
-@"<form action='/Content' method='POST'>
-   <input type='submit' value ='Download Sites Content' /> 
-</form>";
+            private const string DownloadForm = 
+    @"<form action='/Content' method='POST'>
+       <input type='submit' value ='Download Sites Content' /> 
+    </form>";
 
         private const string FileName = "content.txt";
 
