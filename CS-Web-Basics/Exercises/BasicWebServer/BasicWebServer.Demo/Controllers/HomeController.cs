@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.IO;
+using BasicWebServer.Demo.Models;
 
 namespace BasicWebServer.Server.Controllers
 {
@@ -38,15 +39,16 @@ namespace BasicWebServer.Server.Controllers
 
         public Response HtmlFormPost()
         {
-            string formData = string.Empty;
+            var name = Request.Form["Name"];
+            var age = Request.Form["Age"];
 
-            foreach (var (key, value) in this.Request.Form)
+            var model = new FormViewModel()
             {
-                formData += $"{key} - {value}";
-                formData += Environment.NewLine;
-            }
+                Name = name,
+                Age = int.Parse(age)
+            };
 
-            return Text(formData);
+            return View(model);
         }
 
         public Response Content() => View();

@@ -12,4 +12,11 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="Views\Home\Content.cshtml" />
+    <Content Remove="Views\Home\Html.cshtml" />
+    <Content Remove="Views\Home\HtmlFromPost.cshtml" />
+    <Content Remove="Views\Users\Login.cshtml" />
+  </ItemGroup>
+
 </Project>
