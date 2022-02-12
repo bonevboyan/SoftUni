@@ -1,8 +1,7 @@
-﻿using BasicWebServer.Server.Controllers;
-using BasicWebServer.Server.HTTP;
-
-namespace SharedTrip.Controllers
+﻿namespace SharedTrip.Controllers
 {
+    using BasicWebServer.Server.Controllers;
+    using BasicWebServer.Server.HTTP;
 
     public class HomeController : Controller
     {

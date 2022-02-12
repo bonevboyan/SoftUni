@@ -2,6 +2,7 @@
 {
     using BasicWebServer.Server;
     using BasicWebServer.Server.Routing;
+    using SharedTrip.Services;
     using System.Threading.Tasks;
 
     public class Startup
@@ -12,8 +13,10 @@
                .MapControllers()
                .MapStaticFiles());
 
-            //server.ServiceCollection
-            //    .Add<UserService>();
+            server.ServiceCollection
+                .Add<IDbHandler, DbHandler>()
+                .Add<IValidator, Validator>()
+                .Add<IPasswordHasher, PasswordHasher>();
 
             await server.Start();
         }
