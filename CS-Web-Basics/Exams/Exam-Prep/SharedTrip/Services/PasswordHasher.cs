@@ -1,5 +1,6 @@
 ﻿namespace SharedTrip.Services
 {
+    using SharedTrip.Services.Contracts;
     using System.Security.Cryptography;
     using System.Text;
 

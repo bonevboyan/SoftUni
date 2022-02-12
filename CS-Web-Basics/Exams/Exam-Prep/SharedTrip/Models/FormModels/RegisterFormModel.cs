@@ -1,6 +1,6 @@
-﻿namespace SharedTrip.Models
+﻿namespace SharedTrip.Models.FormModels
 {
-    public class RegisterModel
+    public class RegisterFormModel
     {
         public string Username { get; set; }
 

@@ -19,7 +19,7 @@
         public string EndPoint { get; set; }
 
         [Required]
-        public DateTime DepartureTime { get; set; }
+        public DateTime? DepartureTime { get; set; }
 
         public int Seats { get; set; }
 

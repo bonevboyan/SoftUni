@@ -2,13 +2,14 @@
 {
     using SharedTrip.Data;
     using SharedTrip.Data.Models;
-    using SharedTrip.Models;
+    using SharedTrip.Models.FormModels;
+    using SharedTrip.Services.Contracts;
     using System.Linq;
 
     public class DbHandler : IDbHandler
     {
-        private ApplicationDbContext data;
-        private IPasswordHasher passwordHasher;
+        private readonly ApplicationDbContext data;
+        private readonly IPasswordHasher passwordHasher;
 
         public DbHandler()
         {
@@ -16,7 +17,7 @@
             passwordHasher = new PasswordHasher();
         }
 
-        public void RegisterUser(RegisterModel registerModel)
+        public void RegisterUser(RegisterFormModel registerModel)
         {
             var user = new User
             {
@@ -30,7 +31,7 @@
             data.SaveChanges();
         }
 
-        public bool ValidateLoginUser(LoginModel registerModel)
+        public bool ValidateLoginUser(LoginFormModel registerModel)
         {
             var hashedPassword = this.passwordHasher.HashPassword(registerModel.Password);
 

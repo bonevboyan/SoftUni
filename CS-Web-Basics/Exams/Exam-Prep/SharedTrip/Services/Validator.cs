@@ -1,14 +1,15 @@
 ﻿namespace SharedTrip.Services
 {
-    using SharedTrip.Models;
+    using SharedTrip.Models.FormModels;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
     using Shared;
+    using SharedTrip.Services.Contracts;
 
     public class Validator : IValidator
     {
-        public List<string> ValidateRegisterUser(RegisterModel registerModel)
+        public List<string> ValidateRegisterUser(RegisterFormModel registerModel)
         {
             var errors = new List<string>();
 
@@ -35,6 +36,38 @@
             if (registerModel.Password != registerModel.ConfirmPassword)
             {
                 errors.Add("Password and its confirmation are different.");
+            }
+
+            return errors;
+        }
+
+        public List<string> ValidateTrip(TripFormModel tripModel)
+        {
+            var errors = new List<string>();
+
+            if (tripModel.StartPoint == null)
+            {
+                errors.Add($"Start Point is empty.");
+            }
+
+            if (tripModel.EndPoint == null)
+            {
+                errors.Add($"End Point is empty.");
+            }
+
+            if (tripModel.DepartureTime == null)
+            {
+                errors.Add($"Departure Time is empty.");
+            }
+
+            //if (tripModel.Seats < GlobalConstants.PasswordMinLength || tripModel.Seats > GlobalConstants.TripSeatsMaxValue)
+            //{
+            //    errors.Add($"Value of seats '{tripModel.Seats}' is not valid.");
+            //}
+
+            if (tripModel.Description == null)
+            {
+                errors.Add($"Description is invalid.");
             }
 
             return errors;

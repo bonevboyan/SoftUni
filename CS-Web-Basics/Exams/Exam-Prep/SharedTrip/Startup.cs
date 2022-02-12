@@ -3,6 +3,7 @@
     using BasicWebServer.Server;
     using BasicWebServer.Server.Routing;
     using SharedTrip.Services;
+    using SharedTrip.Services.Contracts;
     using System.Threading.Tasks;
 
     public class Startup

@@ -1,4 +1,4 @@
-﻿namespace SharedTrip.Services
+﻿namespace SharedTrip.Services.Contracts
 {
     public interface IPasswordHasher
     {

@@ -3,13 +3,14 @@
     using BasicWebServer.Server.Attributes;
     using BasicWebServer.Server.Controllers;
     using BasicWebServer.Server.HTTP;
-    using SharedTrip.Models;
+    using SharedTrip.Models.FormModels;
     using SharedTrip.Services;
+    using SharedTrip.Services.Contracts;
 
     public class UsersController : Controller
     {
-        private IValidator validator;
-        private IDbHandler dbHandler;
+        private readonly IValidator validator;
+        private readonly IDbHandler dbHandler;
 
         public UsersController(Request request) 
             : base(request)
@@ -24,7 +25,7 @@
         }
 
         [HttpPost]
-        public Response Register(RegisterModel registerModel)
+        public Response Register(RegisterFormModel registerModel)
         {
             var errors = validator.ValidateRegisterUser(registerModel);
 
@@ -44,7 +45,7 @@
         }
 
         [HttpPost]
-        public Response Login(LoginModel loginModel)
+        public Response Login(LoginFormModel loginModel)
         {
             var doesUserExist = dbHandler.ValidateLoginUser(loginModel);
 
