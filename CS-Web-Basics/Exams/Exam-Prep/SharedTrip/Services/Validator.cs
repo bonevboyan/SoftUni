@@ -6,6 +6,8 @@
     using System.Text.RegularExpressions;
     using Shared;
     using SharedTrip.Services.Contracts;
+    using System;
+    using System.Globalization;
 
     public class Validator : IValidator
     {
@@ -55,15 +57,21 @@
                 errors.Add($"End Point is empty.");
             }
 
-            if (tripModel.DepartureTime == null)
+            if (!DateTime.TryParseExact(tripModel.DepartureTime,
+                "dd.MM.yyyy HH:mm",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None, out DateTime date))
             {
-                errors.Add($"Departure Time is empty.");
+                errors.Add($"Departure Time is invalid.");
             }
 
-            //if (tripModel.Seats < GlobalConstants.PasswordMinLength || tripModel.Seats > GlobalConstants.TripSeatsMaxValue)
-            //{
-            //    errors.Add($"Value of seats '{tripModel.Seats}' is not valid.");
-            //}
+            int seats;
+            bool canParse = int.TryParse(tripModel.Seats, out seats);
+
+            if (!canParse || seats < GlobalConstants.TripSeatsMinValue || seats > GlobalConstants.TripSeatsMaxValue)
+            {
+                    errors.Add($"Value of seats '{tripModel.Seats}' is not valid.");
+            }
 
             if (tripModel.Description == null)
             {

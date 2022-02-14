@@ -10,10 +10,12 @@
     public class TripsController : Controller
     {
         private readonly IValidator validator;
+        private readonly IDbHandler dbHandler;
 
         public TripsController(Request request) : base(request)
         {
             validator = new Validator();
+            dbHandler = new DbHandler();
         }
 
         public Response All()
@@ -23,7 +25,8 @@
 
         public Response Details(string tripId)
         {
-            return this.View();
+            var trip = dbHandler.GetTrip(tripId);
+            return this.View(trip);
         }
 
         [HttpGet]
@@ -39,10 +42,13 @@
 
             if(errors.Count != 0)
             {
-                return this.View(errors, "/Error");
+                return this.View();
+                //return this.View(errors, "/Error");
             }
 
-            return this.View("/Trips/All");
+            dbHandler.AddTrips(tripModel);
+
+            return this.Redirect("/Trips/All");
         }
     }
 }

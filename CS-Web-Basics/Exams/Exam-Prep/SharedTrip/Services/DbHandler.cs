@@ -3,7 +3,10 @@
     using SharedTrip.Data;
     using SharedTrip.Data.Models;
     using SharedTrip.Models.FormModels;
+    using SharedTrip.Models.ViewModels;
     using SharedTrip.Services.Contracts;
+    using System;
+    using System.Globalization;
     using System.Linq;
 
     public class DbHandler : IDbHandler
@@ -17,6 +20,44 @@
             passwordHasher = new PasswordHasher();
         }
 
+        public void AddTrips(TripFormModel tripModel)
+        {
+            var trip = new Trip
+            {
+                StartPoint = tripModel.StartPoint,
+                EndPoint = tripModel.EndPoint,
+                Description = tripModel.Description,
+                Seats = int.Parse(tripModel.Seats),
+                ImagePath = tripModel.ImagePath,
+                DepartureTime = DateTime.ParseExact(
+                    tripModel.DepartureTime,
+                    "dd.MM.yyyy HH:mm",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None)
+            };
+
+            data.Trips.Add(trip);
+
+            data.SaveChanges();
+        }
+
+        public TripViewModel GetTrip(string id)
+        {
+            var trip = data.Trips.Where(x => x.Id == id)
+                .Select(x => new TripViewModel
+                {
+                    ImagePath = x.ImagePath,
+                    StartPoint = x.StartPoint,
+                    EndPoint = x.EndPoint,
+                    DepartureTime = (DateTime)x.DepartureTime,
+                    Seats = x.Seats,
+                    Description = x.Description
+                })
+                .FirstOrDefault();
+
+            return trip;
+        }
+
         public void RegisterUser(RegisterFormModel registerModel)
         {
             var user = new User
@@ -26,7 +67,7 @@
                 Email = registerModel.Email
             };
 
-            data.Add(user);
+            data.Users.Add(user);
 
             data.SaveChanges();
         }

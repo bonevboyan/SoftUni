@@ -6,6 +6,7 @@
     using SharedTrip.Models.FormModels;
     using SharedTrip.Services;
     using SharedTrip.Services.Contracts;
+    using System.Collections.Generic;
 
     public class UsersController : Controller
     {
@@ -51,6 +52,7 @@
 
             if (!doesUserExist)
             {
+                //return this.View(new List<string>(new string[]{ "Username and password don't match." }), "/Error");
                 return this.View();
             }
 
