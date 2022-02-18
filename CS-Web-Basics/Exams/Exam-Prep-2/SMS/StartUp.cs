@@ -12,8 +12,8 @@
                .MapControllers()
                .MapStaticFiles());
 
-            //server.ServiceCollection
-            //    .Add<IUserService, UserService>();
+            server.ServiceCollection
+                .Add<IUserService, UserService>();
 
             await server.Start();
         }

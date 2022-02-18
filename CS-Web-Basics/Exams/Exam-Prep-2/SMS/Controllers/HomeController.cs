@@ -12,7 +12,7 @@ namespace SMS.Controllers
 
         public Response Index()
         {
-            return this.View();
+            return this.View(new { IsAuthenticated = false });
         }
     }
 }
