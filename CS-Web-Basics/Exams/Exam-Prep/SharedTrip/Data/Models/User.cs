@@ -19,7 +19,7 @@
         public string Email { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.PasswordMaxLength)]
+        [MaxLength(GlobalConstants.HashedPasswordLength)]
         public string Password { get; set; }
 
         public ICollection<UserTrip> UserTrips { get; set; } = new HashSet<UserTrip>();

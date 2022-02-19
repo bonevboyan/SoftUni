@@ -2,6 +2,8 @@
 {
     using BasicWebServer.Server;
     using BasicWebServer.Server.Routing;
+    using SharedTrip.Data;
+    using SharedTrip.Data.Common;
     using SharedTrip.Services;
     using SharedTrip.Services.Contracts;
     using System.Threading.Tasks;
@@ -15,9 +17,10 @@
                .MapStaticFiles());
 
             server.ServiceCollection
-                .Add<IDbHandler, DbHandler>()
-                .Add<IValidator, Validator>()
-                .Add<IPasswordHasher, PasswordHasher>();
+                .Add<IUserService, UserService>()
+                .Add<IRepository, Repository>()
+                .Add<ApplicationDbContext>()
+                .Add<ITripService, TripService>();
 
             await server.Start();
         }

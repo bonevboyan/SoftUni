@@ -16,6 +16,8 @@ namespace SharedTrip.Shared
 
         public const int PasswordMaxLength = 20;
 
+        public const int HashedPasswordLength = 64;
+
         public const int TripSeatsMinValue = 2;
 
         public const int TripSeatsMaxValue = 6;

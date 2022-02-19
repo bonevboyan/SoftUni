@@ -4,59 +4,87 @@
     using BasicWebServer.Server.Controllers;
     using BasicWebServer.Server.HTTP;
     using SharedTrip.Models.FormModels;
+    using SharedTrip.Models.ViewModels;
     using SharedTrip.Services;
     using SharedTrip.Services.Contracts;
+    using System;
     using System.Collections.Generic;
 
     public class UsersController : Controller
     {
-        private readonly IValidator validator;
-        private readonly IDbHandler dbHandler;
+        private readonly IUserService userService;
 
-        public UsersController(Request request) 
+        public UsersController(Request request, IUserService _userService)
             : base(request)
         {
-            validator = new Validator();
-            dbHandler = new DbHandler();
+            userService = _userService;
         }
 
         public Response Register()
         {
+            if (User.IsAuthenticated)
+            {
+                return Redirect("/Trips/All");
+            }
+
             return this.View();
         }
 
         [HttpPost]
-        public Response Register(RegisterFormModel registerModel)
+        public Response Register(RegisterFormModel model)
         {
-            var errors = validator.ValidateRegisterUser(registerModel);
+            var (isValid, errors) = userService.ValidateModel(model);
 
-            if (errors.Count != 0)
+            if (!isValid)
             {
-                return this.View();
-                //return this.View(errors, "/Error");
+                return View(errors, "/Error");
             }
-            dbHandler.RegisterUser(registerModel);
 
-            return this.Redirect("/Users/Login");
+            try
+            {
+                userService.RegisterUser(model);
+            }
+            catch (ArgumentException aex)
+            {
+                return View(new List<ErrorViewModel>() { new ErrorViewModel(aex.Message) }, "/Error");
+            }
+            catch (Exception)
+            {
+                return View(new List<ErrorViewModel>() { new ErrorViewModel("Unexpected Error") }, "/Error");
+            }
+
+            return Redirect("/Users/Login");
         }
 
         public Response Login()
         {
+            if (User.IsAuthenticated)
+            {
+                return Redirect("/Trips/All");
+            }
+
             return this.View();
         }
 
         [HttpPost]
         public Response Login(LoginFormModel loginModel)
         {
-            var doesUserExist = dbHandler.ValidateLoginUser(loginModel);
+            Request.Session.Clear();
 
-            if (!doesUserExist)
+            (string userId, bool isCorrect) = userService.IsLoginCorrect(loginModel);
+
+            if (isCorrect)
             {
-                //return this.View(new List<string>(new string[]{ "Username and password don't match." }), "/Error");
-                return this.View();
+                SignIn(userId);
+
+                CookieCollection cookies = new CookieCollection();
+                cookies.Add(Session.SessionCookieName,
+                    Request.Session.Id);
+
+                return Redirect("/Trips/All");
             }
 
-            return Redirect("/Trips/All");
+            return View(new List<ErrorViewModel>() { new ErrorViewModel("Login incorrect") }, "/Error");
         }
 
         [Authorize]
