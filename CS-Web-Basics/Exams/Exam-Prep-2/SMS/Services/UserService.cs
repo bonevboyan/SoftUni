@@ -1,6 +1,7 @@
 ﻿namespace SMS.Services
 {
     using SMS.Data;
+    using SMS.Data.Models;
     using SMS.Models.FormModels;
     using SMS.Services.Contracts;
     using SMS.Shared;
@@ -8,7 +9,14 @@
 
     public class UserService : IUserService
     {
-        private readonly SMSDbContext dbContext;
+        private readonly SMSDbContext dbContext = new SMSDbContext();
+
+        public bool LoginUser(LoginFormModel loginForm)
+        {
+
+
+            throw new System.NotImplementedException();
+        }
 
         public string RegisterUser(RegisterFormModel registerFormModel)
         {
@@ -19,14 +27,23 @@
                 return errors;
             }
 
-            //dbContext.Users.Add(new Data.Models.User
-            //{
-            //    Username = registerFormModel.Username,
-            //    Password = registerFormModel.Password,
-            //    Email
-            //})
+            var newUser = new User
+            {
+                Username = registerFormModel.Username,
+                Password = registerFormModel.Password,
+                Email = registerFormModel.Email
+            };
 
-            throw new System.NotImplementedException();
+            newUser.Cart = new Cart
+            {
+                UserId = newUser.Id
+            };
+
+            dbContext.Users.Add(newUser);
+
+            dbContext.SaveChanges();
+
+            return string.Empty;
         }
 
         private string ValidateUser(RegisterFormModel registerFormModel)
@@ -60,5 +77,7 @@
 
             return sb.ToString();
         }
+
+        private string 
     }
 }

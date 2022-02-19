@@ -9,6 +9,8 @@ namespace SMS.Services.Contracts
 {
     public interface IUserService
     {
+        bool LoginUser(LoginFormModel loginForm);
+
         string RegisterUser(RegisterFormModel registerFormModel);
     }
 }

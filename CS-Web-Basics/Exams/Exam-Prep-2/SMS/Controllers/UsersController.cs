@@ -39,7 +39,7 @@
 
             if(errors.Length > 0)
             {
-                return this.View(new { IsAuthenticated = User.IsAuthenticated, errors = errors }, "/Error");
+                return this.View(new { IsAuthenticated = User.IsAuthenticated, ErrorMessage = errors }, "/Error");
             }
 
             return this.Redirect("/Home/Index");
