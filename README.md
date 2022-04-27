@@ -1,7 +1,7 @@
 # SoftUni
 
 ## Repository Information
-- This repository is user for my solutions of exercises throughout my participations in courses in the [**Software University**](https://softuni.bg/).
+- This repository is used for my solutions of exercises throughout my participations in courses in the [**Software University**](https://softuni.bg/).
 
 ## Overview
 - Courses and topics are separated accroding the curriculum at the [**Software University**](https://softuni.bg/).
